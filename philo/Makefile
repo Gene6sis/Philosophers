@@ -6,48 +6,40 @@
 #    By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 00:45:16 by adben-mc          #+#    #+#              #
-#    Updated: 2022/02/15 17:39:48 by adben-mc         ###   ########.fr        #
+#    Updated: 2022/02/19 01:34:34 by adben-mc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_DIR		=	srcs/
 
-SRCS			=	$(SRCS_DIR)main.c
+SRCS			=	$(SRCS_DIR)main.c	\
+					$(SRCS_DIR)ft_error.c	\
+					$(SRCS_DIR)ft_check.c	\
+					
 
 OBJS			= 	${SRCS:.c=.o}
 
-EXEC			= 	philo
+NAME			= 	philo
 
 INC_DIR			=	./includes/.
 CC				=	gcc
 RM				=	rm -f
-CFLAGS			=	-Wall -Wextra -Werror -I$(INC_DIR) -g3 -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -I$(INC_DIR) #-g3 -fsanitize=address
 
-PRINTF_DIR		=	ft_printf
-PRINTF_LIB 		=	$(PRINTF_DIR)/libftprintf.a
-PRINTF_FLAG  	=   -L ft_printf -lftprintf
-
-all:		$(PRINTF_LIB) $(EXEC)
+all:		$(NAME)
 
 .c.o:
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-$(EXEC):	${OBJS}
-			$(CC)  $(CFLAGS) $(OBJS) $(PRINTF_FLAG) -o $(EXEC)
-
-$(PRINTF_LIB):
-	@$(MAKE) -sC ft_printf all
+$(NAME):	${OBJS}
+			$(CC)  $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 			${RM} ${OBJS}
-			@$(MAKE) -sC ft_printf clean
 
 fclean:		clean
-			${RM} ${EXEC}
-			@$(MAKE) -sC ft_printf fclean
+			${RM} ${NAME}
 
 re:			fclean all
 
-bonus:		$(PRINTF_LIB) $(CHECKER)
-
-.PHONY:		all clean fclean re $(PRINTF_LIB)
+.PHONY:		all clean fclean re
