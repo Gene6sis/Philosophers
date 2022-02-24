@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/19 01:35:25 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/24 00:54:56 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,36 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-
+# include <sys/time.h>
+# include <pthread.h>
+# include <string.h>
+/*
+	int gettimeofday(struct timeval *tv, struct timezone *tz);
+	int pthread_create(pthread_t *restrict thread,
+						const pthread_attr_t *restrict attr,
+						void *(*start_routine)(void *),
+						void *restrict arg);
+	int pthread_detach(pthread_t th);
+	int pthread_join(pthread_t thread, void **retval);
+	int pthread_mutex_init(pthread_mutex_t *mutex, 
+		const pthread_mutexattr_t *attr);
+	int pthread_mutex_destroy(pthread_mutex_t *mutex);
+	pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+	int pthread_mutex_lock(pthread_mutex_t *mutex);
+	int pthread_mutex_unlock(pthread_mutex_t *mutex);
+	void * memset( void * pointer, int value, size_t count );
+*/
 typedef struct s_data {
-	char			**argv;
+	int				nb_philo;
+	int				eat_time;
+	int				sleep_time;
+	int				dead_time;
+	int				have_to_eat;
+	int				eat_nb;
+	int				status;
+	struct timeval	time;
 	int				argc;
-	int				nb_number;
-	int				median;
-	int				max_nb;
-	char			**split;
+	char			**argv;
 }				t_data;
 
 /*	|||||||||||||| 	 ERROR || FREE	 |||||||||||	*/
@@ -34,5 +56,8 @@ int		ft_checkarg(char **argv);
 /*	|||||||||||||| 	 LOCK & UNLOCK	 |||||||||||	*/
 
 /*	|||||||||||||| 		 UTILS		 |||||||||||	*/
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+int		ft_atoi(const char *str);
 
 #endif

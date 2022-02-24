@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:57:01 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/19 01:35:24 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:37:04 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ int	ft_checkarg(char **argv)
 				return (0);
 			j++;
 		}
-		// printf("havenb : %d\nstrlen : %d\natolcheck : %d\n", !ft_have_nb(argv[i]),!ft_strlen(argv[i]),!ft_atolcheck(argv[i], 2147483647, -2147483648));
 		if (!ft_have_nb(argv[i]) || !ft_strlen(argv[i])
-				|| !ft_atolcheck(argv[i], 2147483647, -2147483648))
+			|| !ft_atolcheck(argv[i], 2147483647, -2147483648))
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:52:53 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/19 01:35:24 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:37:55 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 // void	ft_error(t_data *data, int error)
 // {
-	
 // }
-
 // int	ft_end(char *message, t_data *data, int error)
 // {
 // 	// ft_error(data, error);
