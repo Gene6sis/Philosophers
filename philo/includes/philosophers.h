@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/24 00:54:56 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:10:34 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ typedef struct s_data {
 	int				argc;
 	char			**argv;
 }				t_data;
+
+typedef struct s_philo {
+	
+}				t_philo;
 
 /*	|||||||||||||| 	 ERROR || FREE	 |||||||||||	*/
 int		ft_checkarg(char **argv);
