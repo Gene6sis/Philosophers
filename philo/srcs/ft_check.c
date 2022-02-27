@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:57:01 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/19 19:37:04 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/27 01:10:22 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,20 @@ int	ft_have_nb(char *str)
 	return (compt);
 }
 
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+	{
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
 int	ft_checkarg(char **argv)
 {
 	int	i;
@@ -66,12 +80,12 @@ int	ft_checkarg(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (!ft_strchr("-0123456789", argv[i][j]))
+			if (!ft_strchr("0123456789", argv[i][j]))
 				return (0);
 			j++;
 		}
 		if (!ft_have_nb(argv[i]) || !ft_strlen(argv[i])
-			|| !ft_atolcheck(argv[i], 2147483647, -2147483648))
+			|| !ft_atolcheck(argv[i], 2147483647, -2147483648) || ft_atoi(argv[i]) == 0)
 			return (0);
 		i++;
 	}

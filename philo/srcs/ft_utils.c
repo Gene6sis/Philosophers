@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:34:33 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/24 00:52:42 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/27 00:37:59 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,27 @@ int	ft_atoi(const char *str)
 	while (str[i] <= '9' && str[i] >= '0')
 		result = result * 10 + (int)str[i++] - '0';
 	return (result * sign);
+}
+
+void	printphilo(t_data *data)
+{
+	int i;
+	t_philo *cur;
+	cur = data->philo;
+	i = 0;
+	while (i < data->nb_philo * 3)
+	{
+		printf("[%d] id : %d\n", i, cur->id);
+		i++;
+		if (data->nb_philo > 1)
+			cur = cur->right;
+	}
+	i--;
+	while (i >= 0)
+	{
+		printf("[%d] id : %d\n", i, cur->id);
+		i--;
+		if (data->nb_philo > 1)
+			cur = cur->left;
+	}
 }

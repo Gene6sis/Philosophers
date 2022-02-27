@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/24 17:10:34 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:47:38 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@
 	int pthread_mutex_unlock(pthread_mutex_t *mutex);
 	void * memset( void * pointer, int value, size_t count );
 */
+
+struct s_data;
+
+typedef struct s_philo {
+	struct s_data	*data;
+	pthread_t		thread;
+	int				id;
+	int				last_eat;
+	struct s_philo	*left;
+	struct s_philo	*right;
+}				t_philo;
+
 typedef struct s_data {
 	int				nb_philo;
 	int				eat_time;
@@ -46,11 +58,9 @@ typedef struct s_data {
 	struct timeval	time;
 	int				argc;
 	char			**argv;
+	t_philo			*philo;
+	pthread_mutex_t	fork;
 }				t_data;
-
-typedef struct s_philo {
-	
-}				t_philo;
 
 /*	|||||||||||||| 	 ERROR || FREE	 |||||||||||	*/
 int		ft_checkarg(char **argv);
@@ -63,5 +73,6 @@ int		ft_checkarg(char **argv);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 int		ft_atoi(const char *str);
+void	printphilo(t_data *data);
 
 #endif
