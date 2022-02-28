@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/28 02:08:37 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/28 06:01:32 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data {
 	int				status;
 	struct timeval	time;
 	int				argc;
+	pthread_mutex_t	print;
 	char			**argv;
 	t_philo			*philo;
 }				t_data;

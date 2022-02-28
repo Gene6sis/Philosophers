@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/28 00:26:38 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/28 06:11:59 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_init(t_data *data, int argc, char **argv)
 		data->have_to_eat = -1;
 	ft_init_thread(data);
 	data->status = 0;
+	pthread_mutex_init(&(data->print), NULL);
 }
 
 int	main(int argc, char **argv)
@@ -39,6 +40,6 @@ int	main(int argc, char **argv)
 		return (!printf("Error\n"));
 	ft_init(&data, argc, argv);
 	ft_thread(&data);
-	printf("status : %d\n", data.status);
+	pthread_mutex_destroy(&(data.print));
 	// printphilo(&data);
 }
