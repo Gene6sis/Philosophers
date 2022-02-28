@@ -6,13 +6,13 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:57:01 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/27 01:10:22 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/28 00:30:14 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	ft_atolcheck(char *str, long max, long min)
+int	ft_atolcheck(char *str, long max, long min)
 {
 	long	i;
 	long	sign;

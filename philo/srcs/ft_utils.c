@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:34:33 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/27 00:37:59 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/28 03:58:21 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,27 @@ void	printphilo(t_data *data)
 		i--;
 		if (data->nb_philo > 1)
 			cur = cur->left;
+	}
+}
+
+int	get_time(struct timeval *debut)
+{
+	struct timeval	fin;
+
+	gettimeofday(&fin, NULL);
+	return ((1e3 * ((&fin)->tv_sec - debut->tv_sec))
+		+ (1e-3 * ((&fin)->tv_usec - debut->tv_usec)));
+}
+
+void	ft_sleep(int time)
+{
+	struct timeval debut;
+
+	gettimeofday(&debut, NULL);
+	while (get_time(&debut) < time)
+	{
+		usleep(1);
+		// printf("gett : %d\n", get_time(&debut));
+		// printf("time : %d\n", time);
 	}
 }

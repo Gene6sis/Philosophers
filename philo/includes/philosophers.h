@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/27 22:47:38 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/02/28 02:08:37 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philo {
 	int				last_eat;
 	struct s_philo	*left;
 	struct s_philo	*right;
+	pthread_mutex_t	fork;
 }				t_philo;
 
 typedef struct s_data {
@@ -59,20 +60,30 @@ typedef struct s_data {
 	int				argc;
 	char			**argv;
 	t_philo			*philo;
-	pthread_mutex_t	fork;
 }				t_data;
 
 /*	|||||||||||||| 	 ERROR || FREE	 |||||||||||	*/
 int		ft_checkarg(char **argv);
 
-/*	||||||||||||||	 	 PARSING	 |||||||||||	*/
+/*	||||||||||||||	 	PARSING		 |||||||||||	*/
+int			ft_atolcheck(char *str, long max, long min);
+int			ft_have_nb(char *str);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_checkarg(char **argv);
 
-/*	|||||||||||||| 	 LOCK & UNLOCK	 |||||||||||	*/
+/*	|||||||||||||| 	 	ROUTINE		 |||||||||||	*/
+void	*routine(void *p);
+
+/*	|||||||||||||| 	 	THREAD		 |||||||||||	*/
+void	ft_init_thread(t_data *data);
+void	ft_thread(t_data *data);
 
 /*	|||||||||||||| 		 UTILS		 |||||||||||	*/
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 int		ft_atoi(const char *str);
 void	printphilo(t_data *data);
+int		get_time(struct timeval *debut);
+void	ft_sleep(int time);
 
 #endif
