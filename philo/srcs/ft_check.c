@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:57:01 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/28 00:30:14 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:06:07 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	ft_checkarg(char **argv)
 			j++;
 		}
 		if (!ft_have_nb(argv[i]) || !ft_strlen(argv[i])
-			|| !ft_atolcheck(argv[i], 2147483647, -2147483648) || ft_atoi(argv[i]) == 0)
+			|| !ft_atolcheck(argv[i], 2147483647, -2147483648)
+			|| ft_atoi(argv[i]) == 0)
 			return (0);
 		i++;
 	}

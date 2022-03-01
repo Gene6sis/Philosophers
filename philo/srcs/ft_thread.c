@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:00 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/28 01:49:07 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:10:13 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	ft_init_thread(t_data *data)
 				// ft_end("Philo creation failed", data, 2);
 		}
 		philo->id = i + 1;
-		if (i == (data->nb_philo - 1) && data->nb_philo != 1)
+		if (i == (data->nb_philo - 1) && data->nb_philo)
 			philo->right = data->philo;
-		if (data->nb_philo != 1)
+		if (data->nb_philo)
 		{
 			philo->right->left = philo;
 			philo = philo->right;
@@ -43,7 +43,7 @@ void	ft_init_thread(t_data *data)
 
 void	ft_thread_create(t_data *data)
 {
-	int	i;
+	int		i;
 	t_philo	*cur;
 
 	i = 0;
@@ -51,7 +51,7 @@ void	ft_thread_create(t_data *data)
 	while (i < data->nb_philo)
 	{
 		cur->data = data;
-		// pthread_mutex_init(&(cur->fork), NULL);
+		pthread_mutex_init(&(cur->fork), NULL);
 		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
 			return ;// ft_end("Thread didn't create\n", 4, data);
 		cur = cur->right->right;
@@ -62,7 +62,7 @@ void	ft_thread_create(t_data *data)
 	while (i < data->nb_philo)
 	{
 		cur->data = data;
-		// pthread_mutex_init(&(cur->fork), NULL);
+		pthread_mutex_init(&(cur->fork), NULL);
 		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
 			return ;// ft_end("Thread didn't create\n", 4, data);
 		cur = cur->right->right;
@@ -72,7 +72,7 @@ void	ft_thread_create(t_data *data)
 
 void	ft_thread_end(t_data *data)
 {
-	int	i;
+	int		i;
 	t_philo	*cur;
 
 	i = 0;
@@ -82,7 +82,7 @@ void	ft_thread_end(t_data *data)
 		pthread_join(cur->thread, NULL);
 		// if ( != 0)
 		// 	ft_end("Thread didn't stop\n", 5, data);
-		// pthread_mutex_destroy(&(cur->fork));
+		pthread_mutex_destroy(&(cur->fork));
 		cur = cur->right;
 		i++;
 	}

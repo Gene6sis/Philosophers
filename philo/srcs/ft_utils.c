@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:34:33 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/28 03:58:21 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:07:51 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ int	ft_atoi(const char *str)
 
 void	printphilo(t_data *data)
 {
-	int i;
-	t_philo *cur;
+	int		i;
+	t_philo	*cur;
+
 	cur = data->philo;
 	i = 0;
 	while (i < data->nb_philo * 3)
@@ -94,13 +95,9 @@ int	get_time(struct timeval *debut)
 
 void	ft_sleep(int time)
 {
-	struct timeval debut;
+	struct timeval	debut;
 
 	gettimeofday(&debut, NULL);
 	while (get_time(&debut) < time)
-	{
 		usleep(1);
-		// printf("gett : %d\n", get_time(&debut));
-		// printf("time : %d\n", time);
-	}
 }

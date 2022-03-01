@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/02/28 06:11:59 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/01 14:05:49 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,4 @@ int	main(int argc, char **argv)
 	ft_init(&data, argc, argv);
 	ft_thread(&data);
 	pthread_mutex_destroy(&(data.print));
-	// printphilo(&data);
 }
