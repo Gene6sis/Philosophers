@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/01 14:05:30 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/01 22:53:25 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*ft_strchr(const char *s, int c);
 int		ft_atoi(const char *str);
 void	printphilo(t_data *data);
 int		get_time(struct timeval *debut);
-void	ft_sleep(int time);
+void	ft_sleep(int time, t_philo *philo);
+int		ft_deadcheck(t_philo *philo);
 
 #endif
