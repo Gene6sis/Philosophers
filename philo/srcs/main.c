@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/01 14:05:49 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 03:39:09 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	main(int argc, char **argv)
 		return (!printf("Error\n"));
 	ft_init(&data, argc, argv);
 	ft_thread(&data);
+	ft_end("The end", &data, 100);
 	pthread_mutex_destroy(&(data.print));
 }

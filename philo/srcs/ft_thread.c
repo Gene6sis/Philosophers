@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:00 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/01 14:10:13 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 03:39:48 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_init_thread(t_data *data)
 
 	i = -1;
 	philo = (t_philo *)malloc(sizeof(t_philo));
-	// if (!philo)
-		// ft_end("Philo creation failed", data, 1);
+	if (!philo)
+		ft_end("Philo creation failed", data, 1);
 	data->philo = philo;
 	while (++i < data->nb_philo)
 	{
@@ -53,7 +53,10 @@ void	ft_thread_create(t_data *data)
 		cur->data = data;
 		pthread_mutex_init(&(cur->fork), NULL);
 		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
-			return ;// ft_end("Thread didn't create\n", 4, data);
+		{
+			ft_end("Thread impair didn't create\n", data, 4);
+			return ;
+		}
 		cur = cur->right->right;
 		i += 2;
 	}
@@ -64,7 +67,10 @@ void	ft_thread_create(t_data *data)
 		cur->data = data;
 		pthread_mutex_init(&(cur->fork), NULL);
 		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
-			return ;// ft_end("Thread didn't create\n", 4, data);
+		{
+			ft_end("Thread impair didn't create\n", data, 4);
+			return ;
+		}
 		cur = cur->right->right;
 		i += 2;
 	}

@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:34 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 02:55:30 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 03:27:07 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_eat(t_philo *philo)
 	{
 		printf("%d %d is eating\n", get_time(&(philo->data->time)), philo->id);
 		pthread_mutex_unlock(&(philo->data->print));
+		philo->nb_eat++;
 	}
 	if (!ft_deadcheck(philo))
 		ft_sleep(philo->data->eat_time, philo);
@@ -104,13 +105,18 @@ void	*routine(void *p)
 		printf("%d %d died\n", get_time(&(((t_philo *)p)->data->time)), ((t_philo *)p)->id);
 		return (0);
 	}
+	((t_philo *)p)->nb_eat = 0;
 	while (!((t_philo *)p)->data->status)
 	{
-		// if (((t_philo *)p)->last_eat - get_time(&(((t_philo *)p)->data->time)) > ((t_philo *)p)->data->dead_time * 1.5)
-			// ft_sleep(((t_philo *)p)->data->dead_time / 3, ((t_philo *)p));
-		ft_eat((t_philo *)p);
-		ft_sleeping((t_philo *)p);
-		ft_thinking((t_philo *)p);
+		printf("id : %d\nnb eat : %d\n", ((t_philo *)p)->id, ((t_philo *)p)->nb_eat);
+		if (((t_philo *)p)->data->have_to_eat == -1 || ((t_philo *)p)->nb_eat < ((t_philo *)p)->data->have_to_eat)
+		{
+			ft_eat((t_philo *)p);
+			ft_sleeping((t_philo *)p);
+			ft_thinking((t_philo *)p);
+		}
+		else
+			((t_philo *)p)->data->status = 1;
 	}
 	return (0);
 }
