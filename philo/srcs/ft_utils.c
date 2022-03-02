@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:34:33 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/01 22:52:32 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 02:54:55 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,5 @@ void	ft_sleep(int time, t_philo *philo)
 
 	gettimeofday(&debut, NULL);
 	while (get_time(&debut) < time && !ft_deadcheck(philo))
-		usleep(1);
+		usleep(3);
 }

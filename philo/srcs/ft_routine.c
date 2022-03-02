@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:34 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 02:18:02 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 02:55:30 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_deadcheck(t_philo *philo)
 
 void	ft_eat(t_philo *philo)
 {
-	printf("%d\t%d tr to take fork[%d]\n", get_time(&(philo->data->time)), philo->id, philo->id);
+	// printf("%d\t%d tr to take fork[%d]\n", get_time(&(philo->data->time)), philo->id, philo->id);
 	pthread_mutex_lock(&(philo->fork));
 	pthread_mutex_lock(&(philo->data->print));
 	if (!ft_deadcheck(philo))
@@ -49,7 +49,7 @@ void	ft_eat(t_philo *philo)
 		printf("%d %d has taken a fork[%d]\n", get_time(&(philo->data->time)), philo->id, philo->id);
 		pthread_mutex_unlock(&(philo->data->print));
 	}
-	printf("%d\t%d tr to take fork[%d]\n", get_time(&(philo->data->time)), philo->id, philo->right->id);
+	// printf("%d\t%d tr to take fork[%d]\n", get_time(&(philo->data->time)), philo->id, philo->right->id);
 	pthread_mutex_lock(&(philo->right->fork));
 	pthread_mutex_lock(&(philo->data->print));
 	if (!ft_deadcheck(philo))
