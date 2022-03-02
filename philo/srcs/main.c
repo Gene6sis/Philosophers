@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 03:39:09 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 04:28:09 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	ft_init(t_data *data, int argc, char **argv)
 		data->have_to_eat = ft_atoi(data->argv[5]);
 	else
 		data->have_to_eat = -1;
-	ft_init_thread(data);
+	data->error = 0;
 	data->status = 0;
-	pthread_mutex_init(&(data->print), NULL);
+	ft_init_thread(data);
+	if (!data->error)
+		pthread_mutex_init(&(data->print), NULL);
 }
 
 int	main(int argc, char **argv)
@@ -40,6 +42,6 @@ int	main(int argc, char **argv)
 		return (!printf("Error\n"));
 	ft_init(&data, argc, argv);
 	ft_thread(&data);
-	ft_end("The end", &data, 100);
-	pthread_mutex_destroy(&(data.print));
+	if (!data.error)
+		ft_end("The end", &data, 100);
 }

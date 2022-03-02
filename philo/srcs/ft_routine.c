@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:34 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 03:27:07 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 04:41:08 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,27 +96,30 @@ void	ft_thinking(t_philo *philo)
 
 void	*routine(void *p)
 {
-	((t_philo *)p)->last_eat = 0;
-	if (((t_philo *)p)->id % 2 == 0 && ((t_philo *)p)->data->nb_philo != 1)
-		ft_sleep(((t_philo *)p)->data->eat_time / 2, ((t_philo *)p));
-	if (((t_philo *)p)->data->nb_philo == 1)
+	t_philo	*philo;
+
+	philo = ((t_philo *)p);
+	philo->last_eat = 0;
+	if (philo->id % 2 == 0 && philo->data->nb_philo != 1)
+		ft_sleep(philo->data->eat_time / 2, philo);
+	if (philo->data->nb_philo == 1)
 	{
-		ft_sleep(((t_philo *)p)->data->dead_time, ((t_philo *)p));
-		printf("%d %d died\n", get_time(&(((t_philo *)p)->data->time)), ((t_philo *)p)->id);
+		ft_sleep(philo->data->dead_time, philo);
+		printf("%d %d died\n", get_time(&(philo->data->time)), philo->id);
 		return (0);
 	}
-	((t_philo *)p)->nb_eat = 0;
-	while (!((t_philo *)p)->data->status)
+	philo->nb_eat = 0;
+	while (!philo->data->status)
 	{
-		printf("id : %d\nnb eat : %d\n", ((t_philo *)p)->id, ((t_philo *)p)->nb_eat);
-		if (((t_philo *)p)->data->have_to_eat == -1 || ((t_philo *)p)->nb_eat < ((t_philo *)p)->data->have_to_eat)
+		// printf("id : %d\nnb eat : %d\n", philo->id, philo->nb_eat);
+		if (philo->data->have_to_eat == -1 || philo->nb_eat < philo->data->have_to_eat)
 		{
-			ft_eat((t_philo *)p);
-			ft_sleeping((t_philo *)p);
-			ft_thinking((t_philo *)p);
+			ft_eat(philo);
+			ft_sleeping(philo);
+			ft_thinking(philo);
 		}
 		else
-			((t_philo *)p)->data->status = 1;
+			philo->data->status = 1;
 	}
 	return (0);
 }

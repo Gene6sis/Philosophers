@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 03:39:17 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 04:17:33 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_philo {
 typedef struct s_data {
 	int				nb_philo;
 	int				eat_time;
+	int				error;
 	int				sleep_time;
 	int				dead_time;
 	int				have_to_eat;
@@ -63,6 +64,10 @@ void	*routine(void *p);
 /*	|||||||||||||| 	 	THREAD		 |||||||||||	*/
 void	ft_init_thread(t_data *data);
 void	ft_thread(t_data *data);
+void	ft_thread_create_pair(t_data *data);
+void	ft_thread_create_impair(t_data *data);
+void	ft_thread_end_pair(t_data *data, int pos);
+void	ft_thread_end_impair(t_data *data, int pos);
 
 /*	|||||||||||||| 		 UTILS		 |||||||||||	*/
 size_t	ft_strlen(const char *s);
