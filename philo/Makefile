@@ -6,7 +6,7 @@
 #    By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 00:45:16 by adben-mc          #+#    #+#              #
-#    Updated: 2022/03/02 04:36:43 by adben-mc         ###   ########.fr        #
+#    Updated: 2022/03/02 18:20:41 by adben-mc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ SRCS			=	$(SRCS_DIR)main.c		\
 					$(SRCS_DIR)ft_check.c	\
 					$(SRCS_DIR)ft_utils.c	\
 					$(SRCS_DIR)ft_routine.c	\
-					$(SRCS_DIR)ft_thread.c
-					
+					$(SRCS_DIR)ft_thread.c	\
+					$(SRCS_DIR)ft_deadcheck.c
+
 OBJS			= 	${SRCS:.c=.o}
 
 NAME			= 	philo

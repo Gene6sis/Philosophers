@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:34:33 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 02:54:55 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 18:14:02 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ int	get_time(struct timeval *debut)
 		+ (1e-3 * ((&fin)->tv_usec - debut->tv_usec)));
 }
 
-void	ft_sleep(int time, t_philo *philo)
+void	ft_sleep(int time, t_philo *philo, int status)
 {
 	struct timeval	debut;
 
 	gettimeofday(&debut, NULL);
-	while (get_time(&debut) < time && !ft_deadcheck(philo))
+	while (get_time(&debut) < time && !ft_deadcheck(philo, status))
 		usleep(3);
 }

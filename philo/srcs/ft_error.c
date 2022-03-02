@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:52:53 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 04:42:01 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:44:08 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_error(t_data *data, int error)
 void	ft_end(char *message, t_data *data, int error)
 {
 	data->error = 1;
-	printf("%s\n", message);
+	// printf("%s\n", message);
+	(void)message;
 	ft_error(data, error);
 }
