@@ -6,7 +6,7 @@
 #    By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 00:45:16 by adben-mc          #+#    #+#              #
-#    Updated: 2022/02/28 06:17:09 by adben-mc         ###   ########.fr        #
+#    Updated: 2022/03/02 03:41:41 by adben-mc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ NAME			= 	philo
 INC_DIR			=	./includes/.
 CC				=	gcc -I$(INC_DIR)
 RM				=	rm -f
-CFLAGS			=	-Wall -Wextra -Werror -pthread #-g3 -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -pthread#-g3 -fsanitize=address
 
 all:		$(NAME)
 
@@ -34,7 +34,7 @@ all:		$(NAME)
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME):	${OBJS}
-			$(CC)  $(CFLAGS) $(OBJS) -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 			${RM} ${OBJS}
