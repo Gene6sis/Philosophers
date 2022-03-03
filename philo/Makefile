@@ -6,19 +6,19 @@
 #    By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 00:45:16 by adben-mc          #+#    #+#              #
-#    Updated: 2022/03/02 18:20:41 by adben-mc         ###   ########.fr        #
+#    Updated: 2022/03/03 05:43:37 by adben-mc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_DIR		=	srcs/
 
-SRCS			=	$(SRCS_DIR)main.c		\
-					$(SRCS_DIR)ft_error.c	\
-					$(SRCS_DIR)ft_check.c	\
-					$(SRCS_DIR)ft_utils.c	\
-					$(SRCS_DIR)ft_routine.c	\
-					$(SRCS_DIR)ft_thread.c	\
-					$(SRCS_DIR)ft_deadcheck.c
+SRCS			=	$(SRCS_DIR)main.c			\
+					$(SRCS_DIR)ft_error.c		\
+					$(SRCS_DIR)ft_check.c		\
+					$(SRCS_DIR)ft_utils.c		\
+					$(SRCS_DIR)ft_routine.c		\
+					$(SRCS_DIR)ft_thread.c		\
+					$(SRCS_DIR)ft_manager.c
 
 OBJS			= 	${SRCS:.c=.o}
 
@@ -27,7 +27,7 @@ NAME			= 	philo
 INC_DIR			=	./includes/.
 CC				=	gcc -I$(INC_DIR)
 RM				=	rm -f
-CFLAGS			=	-Wall -Wextra -Werror -pthread -g3
+CFLAGS			=	-Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
 
 all:		$(NAME)
 

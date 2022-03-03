@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:34:33 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 18:14:02 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 05:42:29 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,53 +37,6 @@ size_t	ft_strlen(const char *s)
 	return (size);
 }
 
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	sign;
-	int	result;
-
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (str[i] == '\f' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\r' || str[i] == '\v' || str[i] == ' ')
-		i++;
-	while (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (str[i] <= '9' && str[i] >= '0')
-		result = result * 10 + (int)str[i++] - '0';
-	return (result * sign);
-}
-
-void	printphilo(t_data *data)
-{
-	int		i;
-	t_philo	*cur;
-
-	cur = data->philo;
-	i = 0;
-	while (i < data->nb_philo * 3)
-	{
-		printf("[%d] id : %d\n", i, cur->id);
-		i++;
-		if (data->nb_philo > 1)
-			cur = cur->right;
-	}
-	i--;
-	while (i >= 0)
-	{
-		printf("[%d] id : %d\n", i, cur->id);
-		i--;
-		if (data->nb_philo > 1)
-			cur = cur->left;
-	}
-}
-
 int	get_time(struct timeval *debut)
 {
 	struct timeval	fin;
@@ -93,11 +46,47 @@ int	get_time(struct timeval *debut)
 		+ (1e-3 * ((&fin)->tv_usec - debut->tv_usec)));
 }
 
-void	ft_sleep(int time, t_philo *philo, int status)
+void	ft_sleep(int time, t_data *data)
 {
 	struct timeval	debut;
 
 	gettimeofday(&debut, NULL);
-	while (get_time(&debut) < time && !ft_deadcheck(philo, status))
-		usleep(3);
+	while (get_time(&debut) < time && !ft_checkdead(data))
+		usleep(200);
+}
+
+int	ft_checkdead(t_data *data)
+{
+	pthread_mutex_lock(&data->status_m);
+	if (data->status)
+	{
+		pthread_mutex_unlock(&data->status_m);
+		return (1);		
+	}
+	pthread_mutex_unlock(&data->status_m);
+	return (0);
+}
+
+// 1 taken fork, 2 is eating, 3 is sleeping, 4 is thinking, 5 is dead
+// x value
+void	ft_output(int x, t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->data->status_m));
+	if (!philo->data->status) // not dead
+	{
+		pthread_mutex_lock(&(philo->data->print));
+		printf("%d %d ", get_time(&(philo->data->time)), philo->id);
+		if (x == 1)
+			printf("has taken a fork\n");
+		else if (x == 2)
+			printf("is eating\n");
+		else if (x == 3)
+			printf("is sleeping\n");
+		else if (x == 4)
+			printf("is thinking\n");
+		else if (x == 5)
+			printf("died\n");
+		pthread_mutex_unlock(&(philo->data->print));
+	}
+	pthread_mutex_unlock(&(philo->data->status_m));
 }

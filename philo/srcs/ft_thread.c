@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:00 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 01:00:18 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 04:58:21 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,28 @@ void	ft_thread_create(t_data *data)
 	int		i;
 	t_philo	*cur;
 
-	i = 0;
+	i = -1;
 	cur = data->philo;
-	while (i < data->nb_philo)
+	while (++i < data->nb_philo)
 	{
 		cur->data = data;
+		cur->last_eat_time = 0;
+		cur->nb_eat = 0;
 		pthread_mutex_init(&(cur->fork), NULL);
 		cur = cur->right;
-		i++;
 	}
 	cur = data->philo;
-	i = 0;
-	while (i < data->nb_philo)
+	i = -1;
+	while (++i < data->nb_philo)
 	{
 		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
 		{
 			ft_thread_end(data, i);
-			return (ft_end("Thread impair didn't create\n", data, 4));
+			return (ft_end("Thread didn't create\n", data, 4));
 		}
 		cur = cur->right;
-		i++;
 	}
+	ft_manager(data);
 }
 
 void	ft_thread_end(t_data *data, int pos)
@@ -90,7 +91,7 @@ void	ft_thread_end(t_data *data, int pos)
 	cur = data->philo;
 	while (i < data->nb_philo)
 	{
-		printf("id philo : %d\n", cur->id);
+		// printf("id philo : %d\n", cur->id);
 		pthread_mutex_destroy(&(cur->fork));
 		cur = cur->right;
 		i++;
@@ -103,5 +104,4 @@ void	ft_thread(t_data *data)
 		ft_thread_create(data);
 	if (!data->error)
 		ft_thread_end(data, data->nb_philo);
-	pthread_mutex_destroy(&(data->m_status));
 }

@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:34 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 01:03:26 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 05:48:23 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,68 +14,49 @@
 
 void	ft_eat(t_philo *philo)
 {
-	ft_fork(philo);
-	pthread_mutex_lock(&(philo->data->print));
-	if (!ft_deadcheck(philo, 3))
+	if (philo->id % 2)
+		pthread_mutex_lock(&philo->fork);
+	else
+		pthread_mutex_lock(&philo->right->fork);
+	ft_output(1, philo);
+	if (philo->id % 2)
+		pthread_mutex_lock(&philo->right->fork);
+	else
+		pthread_mutex_lock(&philo->fork);
+	ft_output(2, philo);
+	pthread_mutex_lock(&(philo->last_eat));
+	philo->last_eat_time = get_time(&philo->data->time);
+	pthread_mutex_unlock(&(philo->last_eat));
+	ft_sleep(philo->data->eat_time, philo->data);
+	pthread_mutex_unlock(&philo->fork);
+	pthread_mutex_unlock(&philo->right->fork);
+	if (++philo->nb_eat == philo->data->have_to_eat)
 	{
-		printf("%d %d is eating\n", get_time(&(philo->data->time)), philo->id);
-		pthread_mutex_unlock(&(philo->data->print));
-		philo->nb_eat++;
-	}
-	if (!ft_deadcheck(philo, 4))
-		ft_sleep(philo->data->eat_time, philo, 4);
-	if (!ft_deadcheck(philo, 4))
-	{
-		pthread_mutex_unlock(&(philo->fork));
-		// printf("%d\t%d drop the fork middl[%d]\n", get_time(&(philo->data->time)), philo->id, philo->id);
-		pthread_mutex_unlock(&(philo->right->fork));
-		// printf("%d\t%d drop the fork right[%d]\n", get_time(&(philo->data->time)), philo->id, philo->right->id);
-	}
-}
-
-void	ft_sleeping(t_philo *philo)
-{
-	pthread_mutex_lock(&(philo->data->print));
-	if (!ft_deadcheck(philo, 5))
-	{
-		printf("%d %d is sleeping\n", get_time(&(philo->data->time)), philo->id);
-		pthread_mutex_unlock(&(philo->data->print));
-	}
-	ft_sleep(philo->data->sleep_time, philo, 6);
-}
-
-void	ft_thinking(t_philo *philo)
-{
-	pthread_mutex_lock(&(philo->data->print));
-	if (!ft_deadcheck(philo, 7))
-	{
-		printf("%d %d is thinking\n", get_time(&(philo->data->time)), philo->id);
-		pthread_mutex_unlock(&(philo->data->print));
+		pthread_mutex_unlock(&philo->data->eat_m);
+		philo->data->total_eat++;
+		pthread_mutex_unlock(&philo->data->eat_m);
 	}
 }
 
 void	*routine(void *p)
 {
 	t_philo	*philo;
+	t_data	*data;
 
 	philo = (t_philo *)p;
-	philo->last_eat = 0;
-	philo->islock = 0;
-	if (philo->id % 2 == 0 && philo->data->nb_philo != 1)
-		ft_sleep(philo->data->eat_time / 2, philo, 0);
+	data = philo->data;
+	if (philo->id % 2 == 0)
+		ft_sleep(philo->data->eat_time / 2, data);
 	if (philo->data->nb_philo == 1)
-	{
-		ft_sleep(philo->data->dead_time, philo, 0);
-		printf("%d %d died\n", get_time(&(philo->data->time)), philo->id);
-		return (0);
-	}
-	philo->nb_eat = 0;
-	while (!philo->data->status && (philo->nb_eat < philo->data->have_to_eat
-			|| philo->data->have_to_eat == -1))
+		ft_output(1, philo);
+	while (data->nb_philo > 1 && !ft_checkdead(data))
 	{
 		ft_eat(philo);
-		ft_sleeping(philo);
-		ft_thinking(philo);
+		ft_output(3, philo);
+		ft_sleep(data->sleep_time, data);
+		ft_output(4, philo);
+		if (data->nb_philo % 2)
+			ft_sleep(data->eat_time, data);
 	}
 	return (0);
 }

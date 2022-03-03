@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 00:58:53 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 05:41:41 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,15 @@ void	ft_init(t_data *data, int argc, char **argv)
 	data->dead_time = ft_atoi(data->argv[2]);
 	data->eat_time = ft_atoi(data->argv[3]);
 	data->sleep_time = ft_atoi(data->argv[4]);
+	data->have_to_eat = (int)2147483647;
 	if (data->argc == 6)
 		data->have_to_eat = ft_atoi(data->argv[5]);
-	else
-		data->have_to_eat = -1;
 	data->error = 0;
 	data->status = 0;
+	data->total_eat = 0;
 	ft_init_thread(data);
 	if (!data->error)
 		pthread_mutex_init(&(data->print), NULL);
-	if (!data->error)
-		pthread_mutex_init(&(data->m_status), NULL);
 }
 
 int	main(int argc, char **argv)
