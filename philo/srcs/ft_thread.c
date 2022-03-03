@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:00 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 04:20:09 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 01:00:18 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,50 +44,35 @@ void	ft_init_thread(t_data *data)
 	}
 }
 
-void	ft_thread_create_pair(t_data *data)
+void	ft_thread_create(t_data *data)
 {
 	int		i;
 	t_philo	*cur;
 
 	i = 0;
-	cur = data->philo;// pair
+	cur = data->philo;
 	while (i < data->nb_philo)
 	{
 		cur->data = data;
 		pthread_mutex_init(&(cur->fork), NULL);
+		cur = cur->right;
+		i++;
+	}
+	cur = data->philo;
+	i = 0;
+	while (i < data->nb_philo)
+	{
 		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
 		{
-			ft_thread_end_pair(data, i);
+			ft_thread_end(data, i);
 			return (ft_end("Thread impair didn't create\n", data, 4));
 		}
-		cur = cur->right->right;
-		i += 2;
+		cur = cur->right;
+		i++;
 	}
 }
 
-void	ft_thread_create_impair(t_data *data)
-{
-	int		i;
-	t_philo	*cur;
-
-	cur = data->philo->right;// impair
-	i = 1;
-	while (i < data->nb_philo)
-	{
-		cur->data = data;
-		pthread_mutex_init(&(cur->fork), NULL);
-		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
-		{
-			ft_thread_end_pair(data, data->nb_philo);
-			ft_thread_end_impair(data, i);
-			return (ft_end("Thread impair didn't create\n", data, 5));
-		}
-		cur = cur->right->right;
-		i += 2;
-	}
-}
-
-void	ft_thread_end_pair(t_data *data, int pos)
+void	ft_thread_end(t_data *data, int pos)
 {
 	int		i;
 	t_philo	*cur;
@@ -98,37 +83,25 @@ void	ft_thread_end_pair(t_data *data, int pos)
 	{
 		if (pthread_join(cur->thread, NULL) != 0)
 			return (ft_end("Thread didn't stop\n", data, 5));
-		pthread_mutex_destroy(&(cur->fork));
-		cur = cur->right->right;
-		i += 2;
+		cur = cur->right;
+		i++;
 	}
-}
-
-void	ft_thread_end_impair(t_data *data, int pos)
-{
-	int		i;
-	t_philo	*cur;
-
-	i = 1;
-	cur = data->philo->right;
-	while (i < pos)
+	i = 0;
+	cur = data->philo;
+	while (i < data->nb_philo)
 	{
-		if (pthread_join(cur->thread, NULL) != 0)
-			return (ft_end("Thread didn't stop\n", data, 5));
+		printf("id philo : %d\n", cur->id);
 		pthread_mutex_destroy(&(cur->fork));
-		cur = cur->right->right;
-		i += 2;
+		cur = cur->right;
+		i++;
 	}
 }
 
 void	ft_thread(t_data *data)
 {
 	if (!data->error)
-		ft_thread_create_pair(data);
+		ft_thread_create(data);
 	if (!data->error)
-		ft_thread_create_impair(data);
-	if (!data->error)
-		ft_thread_end_pair(data, data->nb_philo);
-	if (!data->error)
-		ft_thread_end_impair(data, data->nb_philo);
+		ft_thread_end(data, data->nb_philo);
+	pthread_mutex_destroy(&(data->m_status));
 }

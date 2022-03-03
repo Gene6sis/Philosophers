@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 04:28:09 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 00:58:53 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_init(t_data *data, int argc, char **argv)
 	ft_init_thread(data);
 	if (!data->error)
 		pthread_mutex_init(&(data->print), NULL);
+	if (!data->error)
+		pthread_mutex_init(&(data->m_status), NULL);
 }
 
 int	main(int argc, char **argv)

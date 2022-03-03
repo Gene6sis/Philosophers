@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:34 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 18:47:11 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 01:03:26 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,7 @@
 
 void	ft_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->fork));
-	pthread_mutex_lock(&(philo->data->print));
-	if (!ft_deadcheck(philo, 1))
-	{
-		printf("%d %d has taken a fork[%d]\n", get_time(&(philo->data->time)), philo->id, philo->id);
-		pthread_mutex_unlock(&(philo->data->print));
-	}
-	pthread_mutex_lock(&(philo->right->fork));
-	pthread_mutex_lock(&(philo->data->print));
-	if (!ft_deadcheck(philo, 2))
-	{
-		philo->last_eat = get_time(&(philo->data->time));
-		printf("%d %d has taken a fork[%d]\n", get_time(&(philo->data->time)), philo->id, philo->right->id);
-		pthread_mutex_unlock(&(philo->data->print));
-	}
+	ft_fork(philo);
 	pthread_mutex_lock(&(philo->data->print));
 	if (!ft_deadcheck(philo, 3))
 	{
@@ -38,10 +24,13 @@ void	ft_eat(t_philo *philo)
 	}
 	if (!ft_deadcheck(philo, 4))
 		ft_sleep(philo->data->eat_time, philo, 4);
-	if (!ft_deadcheck(philo, 12))
+	if (!ft_deadcheck(philo, 4))
+	{
 		pthread_mutex_unlock(&(philo->fork));
-	if (!ft_deadcheck(philo, 12))
+		// printf("%d\t%d drop the fork middl[%d]\n", get_time(&(philo->data->time)), philo->id, philo->id);
 		pthread_mutex_unlock(&(philo->right->fork));
+		// printf("%d\t%d drop the fork right[%d]\n", get_time(&(philo->data->time)), philo->id, philo->right->id);
+	}
 }
 
 void	ft_sleeping(t_philo *philo)
@@ -71,6 +60,7 @@ void	*routine(void *p)
 
 	philo = (t_philo *)p;
 	philo->last_eat = 0;
+	philo->islock = 0;
 	if (philo->id % 2 == 0 && philo->data->nb_philo != 1)
 		ft_sleep(philo->data->eat_time / 2, philo, 0);
 	if (philo->data->nb_philo == 1)

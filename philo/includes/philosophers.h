@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 18:41:36 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/03 00:58:17 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo {
 	struct s_philo	*left;
 	struct s_philo	*right;
 	pthread_mutex_t	fork;
+	int				islock;
 }				t_philo;
 
 typedef struct s_data {
@@ -44,6 +45,7 @@ typedef struct s_data {
 	struct timeval	time;
 	int				argc;
 	pthread_mutex_t	print;
+	pthread_mutex_t	m_status;
 	char			**argv;
 	t_philo			*philo;
 }				t_data;
@@ -60,15 +62,14 @@ int		ft_checkarg(char **argv);
 
 /*	|||||||||||||| 	 	ROUTINE		 |||||||||||	*/
 void	*routine(void *p);
+void	ft_fork(t_philo *philo);
 int		ft_dead(t_philo *philo, int status);
 
 /*	|||||||||||||| 	 	THREAD		 |||||||||||	*/
 void	ft_init_thread(t_data *data);
 void	ft_thread(t_data *data);
-void	ft_thread_create_pair(t_data *data);
-void	ft_thread_create_impair(t_data *data);
-void	ft_thread_end_pair(t_data *data, int pos);
-void	ft_thread_end_impair(t_data *data, int pos);
+void	ft_thread_end(t_data *data, int pos);
+void	ft_thread_create(t_data *data);
 
 /*	|||||||||||||| 		 UTILS		 |||||||||||	*/
 size_t	ft_strlen(const char *s);
