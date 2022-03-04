@@ -6,7 +6,7 @@
 #    By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 00:45:16 by adben-mc          #+#    #+#              #
-#    Updated: 2022/03/04 03:51:04 by adben-mc         ###   ########.fr        #
+#    Updated: 2022/03/04 17:18:37 by adben-mc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NAME			= 	philo
 INC_DIR			=	./includes/.
 CC				=	gcc -I$(INC_DIR)
 RM				=	rm -f
-CFLAGS			=	-Wall -Wextra -Werror -pthread -fsanitize=thread
+CFLAGS			=	-Wall -Wextra -Werror -pthread
 
 all:		$(NAME)
 

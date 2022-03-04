@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 01:52:00 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/04 04:16:34 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:01:15 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "philosophers.h"
 
 static void	ft_stop(t_data *data)
 {
@@ -55,12 +55,12 @@ void	ft_manager(t_data *data)
 			if (!status)
 				return ;
 			pthread_mutex_lock(&data->eat_m);
-			if(data->total_eat == data->nb_philo)
+			if (data->total_eat == data->nb_philo)
 			{
 				ft_stop(data);
 				status = 0;
 			}
-			pthread_mutex_unlock(&data->eat_m);	
+			pthread_mutex_unlock(&data->eat_m);
 		}
 		if (status)
 			usleep(500);

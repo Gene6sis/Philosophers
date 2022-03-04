@@ -6,7 +6,7 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 01:04:55 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/04 04:20:30 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:02:09 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ struct	s_data;
 
 typedef struct s_philo {
 	int					id;
-	pthread_mutex_t		fork;//
+	pthread_mutex_t		fork;
 	struct s_data		*data;
 	pthread_t			thread;
-	pthread_mutex_t		last_eat;//
+	pthread_mutex_t		last_eat;
 	int					last_eat_time;
 	int					nb_eat;
 	struct s_philo		*left;
@@ -47,7 +47,7 @@ typedef struct s_data {
 	int					have_to_eat;
 	int					error;
 	struct timeval		time;
-	pthread_mutex_t		print;//
+	pthread_mutex_t		print;
 	pthread_mutex_t		status_m;
 	int					status;
 	pthread_mutex_t		eat_m;

@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:34 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/04 04:09:36 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:01:40 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "philosophers.h"
 
 int	ft_checkdead(t_data *data)
 {
@@ -18,7 +18,7 @@ int	ft_checkdead(t_data *data)
 	if (data->status)
 	{
 		pthread_mutex_unlock(&data->status_m);
-		return (1);		
+		return (1);
 	}
 	pthread_mutex_unlock(&data->status_m);
 	return (0);

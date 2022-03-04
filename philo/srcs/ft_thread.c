@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 03:58:30 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/04 04:20:26 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:59:55 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "philosophers.h"
 
 void	ft_init_thread(t_data *data)
 {
@@ -28,10 +28,7 @@ void	ft_init_thread(t_data *data)
 		{
 			philo->right = (t_philo *)malloc(sizeof(t_philo));
 			if (!philo->right)
-			{
-				philo->right = NULL;
 				return (ft_end("Philo creation failed", data, 2));
-			}
 		}
 		philo->id = i + 1;
 		if (i == (data->nb_philo - 1) && data->nb_philo)
@@ -67,11 +64,10 @@ void	ft_thread_create(t_data *data)
 		if (pthread_create(&(cur->thread), NULL, &routine, (void *)cur) != 0)
 		{
 			ft_thread_end(data, i);
-			return (ft_end("Thread didn't create\n", data, 4));
+			return (ft_end("Thread didn't create\n", data, 2));
 		}
 		cur = cur->right;
 	}
-	ft_manager(data);
 }
 
 void	ft_thread_end(t_data *data, int pos)
@@ -84,7 +80,7 @@ void	ft_thread_end(t_data *data, int pos)
 	while (i < pos)
 	{
 		if (pthread_join(cur->thread, NULL) != 0)
-			return (ft_end("Thread didn't stop\n", data, 5));
+			return (ft_end("Thread didn't stop\n", data, 2));
 		cur = cur->right;
 		i++;
 	}
@@ -92,7 +88,6 @@ void	ft_thread_end(t_data *data, int pos)
 	cur = data->philo;
 	while (i < data->nb_philo)
 	{
-		// printf("id philo : %d\n", cur->id);
 		pthread_mutex_destroy(&(cur->fork));
 		cur = cur->right;
 		i++;
@@ -103,6 +98,8 @@ void	ft_thread(t_data *data)
 {
 	if (!data->error)
 		ft_thread_create(data);
+	if (!data->error)
+		ft_manager(data);
 	if (!data->error)
 		ft_thread_end(data, data->nb_philo);
 }

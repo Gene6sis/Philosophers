@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/04 04:30:41 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:56:31 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "philosophers.h"
 
 void	ft_init(t_data *data, int argc, char **argv)
 {
@@ -45,4 +45,5 @@ int	main(int argc, char **argv)
 	ft_thread(&data);
 	if (!data.error)
 		ft_end("The end", &data, 100);
+	return (0);
 }
