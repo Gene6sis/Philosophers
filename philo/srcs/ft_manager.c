@@ -6,21 +6,13 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 01:52:00 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 05:44:26 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 04:16:34 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 
-void	ft_init_manager(t_data *data)
-{
-	data->manager = (t_manager *)malloc(sizeof(t_manager));
-	if (!data->manager)
-		return (ft_end("manager creation failed", data, 1));
-	data->manager->data = data;
-}
-
-void	ft_stop(t_data *data)
+static void	ft_stop(t_data *data)
 {
 	pthread_mutex_lock(&data->status_m);
 	data->status = 1;

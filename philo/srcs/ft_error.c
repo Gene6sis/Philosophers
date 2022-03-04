@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:52:53 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/02 17:44:08 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 03:53:24 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 
 void ft_destroylist(t_philo *philo, int nb)
 {

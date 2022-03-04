@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:34:33 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 05:42:29 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 04:12:03 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -52,19 +52,9 @@ void	ft_sleep(int time, t_data *data)
 
 	gettimeofday(&debut, NULL);
 	while (get_time(&debut) < time && !ft_checkdead(data))
-		usleep(200);
-}
-
-int	ft_checkdead(t_data *data)
-{
-	pthread_mutex_lock(&data->status_m);
-	if (data->status)
 	{
-		pthread_mutex_unlock(&data->status_m);
-		return (1);		
+		usleep(200);
 	}
-	pthread_mutex_unlock(&data->status_m);
-	return (0);
 }
 
 // 1 taken fork, 2 is eating, 3 is sleeping, 4 is thinking, 5 is dead
@@ -72,7 +62,7 @@ int	ft_checkdead(t_data *data)
 void	ft_output(int x, t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->status_m));
-	if (!philo->data->status) // not dead
+	if (!philo->data->status)
 	{
 		pthread_mutex_lock(&(philo->data->print));
 		printf("%d %d ", get_time(&(philo->data->time)), philo->id);

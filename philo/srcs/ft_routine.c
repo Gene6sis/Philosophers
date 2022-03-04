@@ -6,11 +6,23 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 00:25:34 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 05:48:23 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 04:09:36 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
+
+int	ft_checkdead(t_data *data)
+{
+	pthread_mutex_lock(&data->status_m);
+	if (data->status)
+	{
+		pthread_mutex_unlock(&data->status_m);
+		return (1);		
+	}
+	pthread_mutex_unlock(&data->status_m);
+	return (0);
+}
 
 void	ft_eat(t_philo *philo)
 {
@@ -23,6 +35,7 @@ void	ft_eat(t_philo *philo)
 		pthread_mutex_lock(&philo->right->fork);
 	else
 		pthread_mutex_lock(&philo->fork);
+	ft_output(1, philo);
 	ft_output(2, philo);
 	pthread_mutex_lock(&(philo->last_eat));
 	philo->last_eat_time = get_time(&philo->data->time);
@@ -32,7 +45,7 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->right->fork);
 	if (++philo->nb_eat == philo->data->have_to_eat)
 	{
-		pthread_mutex_unlock(&philo->data->eat_m);
+		pthread_mutex_lock(&philo->data->eat_m);
 		philo->data->total_eat++;
 		pthread_mutex_unlock(&philo->data->eat_m);
 	}
@@ -45,7 +58,7 @@ void	*routine(void *p)
 
 	philo = (t_philo *)p;
 	data = philo->data;
-	if (philo->id % 2 == 0)
+	if (!(philo->id % 2))
 		ft_sleep(philo->data->eat_time / 2, data);
 	if (philo->data->nb_philo == 1)
 		ft_output(1, philo);

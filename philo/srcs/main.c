@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:37:22 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 05:41:41 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 04:30:41 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 
 void	ft_init(t_data *data, int argc, char **argv)
 {
@@ -28,8 +28,9 @@ void	ft_init(t_data *data, int argc, char **argv)
 	data->status = 0;
 	data->total_eat = 0;
 	ft_init_thread(data);
-	if (!data->error)
-		pthread_mutex_init(&(data->print), NULL);
+	pthread_mutex_init(&(data->print), NULL);
+	pthread_mutex_init(&(data->status_m), NULL);
+	pthread_mutex_init(&(data->eat_m), NULL);
 }
 
 int	main(int argc, char **argv)

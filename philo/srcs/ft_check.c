@@ -6,11 +6,11 @@
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 00:57:01 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 02:29:28 by adben-mc         ###   ########.fr       */
+/*   Updated: 2022/03/04 03:53:20 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 
 int	ft_atolcheck(char *str, long max, long min)
 {

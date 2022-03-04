@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adben-mc <adben-mc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 00:25:00 by adben-mc          #+#    #+#             */
-/*   Updated: 2022/03/03 04:58:21 by adben-mc         ###   ########.fr       */
+/*   Created: 2022/03/04 03:58:30 by adben-mc          #+#    #+#             */
+/*   Updated: 2022/03/04 04:20:26 by adben-mc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 
 void	ft_init_thread(t_data *data)
 {
@@ -57,6 +57,7 @@ void	ft_thread_create(t_data *data)
 		cur->last_eat_time = 0;
 		cur->nb_eat = 0;
 		pthread_mutex_init(&(cur->fork), NULL);
+		pthread_mutex_init(&(cur->last_eat), NULL);
 		cur = cur->right;
 	}
 	cur = data->philo;
